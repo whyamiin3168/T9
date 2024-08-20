@@ -14,13 +14,36 @@
 
 		<Button
 			android:id="@+id/leftbuttonT9"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="left"
+			android:layout_width="70dp"
+			android:layout_height="65dp"
+			android:layout_marginEnd="32dp"
+			android:text="Click"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.741" />
+
+		<ImageButton
+			android:id="@+id/button"
+			android:layout_width="70dp"
+			android:layout_height="65dp"
+			android:src="@drawable/ic_dpad_up"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/button2"
+			app:layout_constraintHorizontal_bias="1.0"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.375" />
+
+		<ImageButton
+			android:id="@+id/button2"
+			android:layout_width="70dp"
+			android:layout_height="65dp"
+			android:src="@drawable/ic_dpad_down"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/leftbuttonT9"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.375" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -119,13 +142,36 @@
 
 		<Button
 			android:id="@+id/rightbuttonT9"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Right"
+			android:layout_width="70dp"
+			android:layout_height="65dp"
+			android:layout_marginStart="32dp"
+			android:text="Click"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.741" />
+
+		<ImageButton
+			android:id="@+id/button3"
+			android:layout_width="70dp"
+			android:layout_height="65dp"
+			android:src="@drawable/ic_dpad_left"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/rightbuttonT9"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.375" />
+
+		<ImageButton
+			android:id="@+id/button4"
+			android:layout_width="70dp"
+			android:layout_height="65dp"
+			android:src="@drawable/ic_dpad_right"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toEndOf="@+id/button3"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.375" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
