@@ -3,12 +3,16 @@ package io.github.sspanak.tt9.ime;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.hacks.InputType;
@@ -56,6 +60,18 @@ public class TraditionalT9 extends MainViewHandler {
 		setDarkTheme();
 		statusBar.setText(mInputMode);
 		suggestionOps.set(mInputMode.getSuggestions());
+
+		// Locate the button in your input view
+		// view.findViewById(R.id.separator_1_1)
+//		ImageButton myButton = mainView.getView().findViewById(R.id.button1);
+//		TextView numberDisplay = mainView.getView().findViewById(R.id.textView1);
+//		myButton.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				int numberToDisplay = 42;
+//				numberDisplay.setText(String.valueOf(numberToDisplay)); // Update the TextView with the number
+//			}
+//		});
 
 		return mainView.getView();
 	}

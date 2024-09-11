@@ -132,6 +132,7 @@ public class SoftNumberKey extends SoftKey {
 	}
 
 	protected int getNumber(int keyId) {
+		// when I edit the return number, it shows in numpad but does nothing
 		if (keyId == R.id.soft_key_0) return 0;
 		if (keyId == R.id.soft_key_1) return 1;
 		if (keyId == R.id.soft_key_2) return 2;

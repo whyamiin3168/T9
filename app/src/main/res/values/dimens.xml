@@ -25,11 +25,11 @@
 	<dimen name="pref_padding_vertical">12dp</dimen>
 
 	<!-- Numpad -->
-	<dimen name="numpad_max_width">10000dp</dimen>
+	<dimen name="numpad_max_width">600dp</dimen>
 	<dimen name="numpad_padding_bottom">2dp</dimen>
 	<dimen name="numpad_row_separator_margin">0dp</dimen>
 
-	<dimen name="numpad_key_height">56dp</dimen>
+	<dimen name="numpad_key_height">65dp</dimen>
 	<dimen name="numpad_arrow_key_width">36dp</dimen>
 	<dimen name="numpad_control_key_layout_weight">0.85</dimen>
 

@@ -2,9 +2,18 @@ package io.github.sspanak.tt9.ui.main;
 
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.SystemClock;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -17,6 +26,7 @@ import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftCommandKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
 import io.github.sspanak.tt9.ui.main.keys.SoftNumberKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftPunctuationKey;
@@ -24,7 +34,8 @@ import io.github.sspanak.tt9.ui.main.keys.SoftPunctuationKey;
 class MainLayoutNumpad extends BaseMainLayout {
 	private boolean isTextEditingShown = false;
 	private int height;
-
+	private final Handler handler = new Handler();
+	private boolean isMoving = false;
 
 	MainLayoutNumpad(TraditionalT9 tt9) {
 		super(tt9, R.layout.main_numpad);
@@ -219,8 +230,228 @@ class MainLayoutNumpad extends BaseMainLayout {
 		for (SoftKey key : getKeys()) {
 			key.render();
 		}
+
+		int step = 25;
+		isMoving = false;
+
+// Create a handler to continuously update the pointer position
+		//Handler handler = new Handler();
+
+// Runnable to update pointer position continuously
+		Runnable moveUpRunnable = new Runnable() {
+			@Override
+			public void run() {
+				if (isMoving) {
+					movePointer(0, -step);
+					handler.postDelayed(this, 100); // Delay of 100ms for continuous movement
+				}
+			}
+		};
+
+		Runnable moveDownRunnable = new Runnable() {
+			@Override
+			public void run() {
+				if (isMoving) {
+					movePointer(0, step);
+					handler.postDelayed(this, 100);
+				}
+			}
+		};
+
+		Runnable moveLeftRunnable = new Runnable() {
+			@Override
+			public void run() {
+				if (isMoving) {
+					movePointer(-step, 0);
+					handler.postDelayed(this, 100);
+				}
+			}
+		};
+
+		Runnable moveRightRunnable = new Runnable() {
+			@Override
+			public void run() {
+				if (isMoving) {
+					movePointer(step, 0);
+					handler.postDelayed(this, 100);
+				}
+			}
+		};
+
+// Setup touch listeners for each button
+		ImageButton upButton = getView().findViewById(R.id.button1);
+		upButton.setOnTouchListener((v, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				isMoving = true;
+				handler.post(moveUpRunnable);
+			} else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+				isMoving = false;
+			}
+			return true;
+		});
+
+		ImageButton downButton = getView().findViewById(R.id.button2);
+		downButton.setOnTouchListener((v, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				isMoving = true;
+				handler.post(moveDownRunnable);
+			} else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+				isMoving = false;
+			}
+			return true;
+		});
+
+		ImageButton leftButton = getView().findViewById(R.id.button3);
+		leftButton.setOnTouchListener((v, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				isMoving = true;
+				handler.post(moveLeftRunnable);
+			} else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+				isMoving = false;
+			}
+			return true;
+		});
+
+		ImageButton rightButton = getView().findViewById(R.id.button4);
+		rightButton.setOnTouchListener((v, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				isMoving = true;
+				handler.post(moveRightRunnable);
+			} else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+				isMoving = false;
+			}
+			return true;
+		});
+
+		// no need anymore
+//		ImageButton upButton = getView().findViewById(R.id.button1);
+//		upButton.setOnClickListener(v -> movePointer(0, -step)); // Move up
+//
+//		ImageButton downButton = getView().findViewById(R.id.button2);
+//		downButton.setOnClickListener(v -> movePointer(0, step)); // Move down
+//
+//		ImageButton leftButton = getView().findViewById(R.id.button3);
+//		leftButton.setOnClickListener(v -> movePointer(-step, 0)); // Move left
+//
+//		ImageButton rightButton = getView().findViewById(R.id.button4);
+//		rightButton.setOnClickListener(v -> movePointer(step, 0)); // Move right
+
+		// simulate the clicking action
+		Button clickButton = getView().findViewById(R.id.leftbuttonT9);
+		View root_view = getView(); //findViewById(android.R.id.content).getRootView();
+		clickButton.setOnClickListener(v -> simulateTouchAtPointerPosition(root_view));
+
+		// right button
+		Button clickrightButton = getView().findViewById(R.id.rightbuttonT9);
+		//View root_view = getView(); //findViewById(android.R.id.content).getRootView();
+		clickrightButton.setOnClickListener(v -> simulateTouchAtPointerPosition(root_view));
+
+
 	}
 
+	// no need anymore
+	public void movePointer(int deltaX, int deltaY) {
+		// view.findViewById(R.id.pointer) is fine as well??
+		ImageView pointer = getView().findViewById(R.id.pointer);
+
+		pointer.setX(pointer.getX() + deltaX); // Update X position
+		pointer.setY(pointer.getY() + deltaY); // Update Y position
+	}
+
+	public void simulateTouchAtPointerPosition(View rootView) {
+		// Get the current position of the pointer
+		ImageView pointer = getView().findViewById(R.id.pointer);
+
+		//Softkey
+
+
+		float x = pointer.getX();
+		float y = pointer.getY();
+
+		// Get the current time in milliseconds
+		long downTime = SystemClock.uptimeMillis();
+		long eventTime = SystemClock.uptimeMillis();
+
+		// Create the MotionEvent for ACTION_DOWN (finger press)
+		// Note: because we have another constraint on the left, it takes into
+		// account of 250 dp spacing
+		MotionEvent motionEventDown = MotionEvent.obtain(
+			downTime, eventTime, MotionEvent.ACTION_DOWN, (x), y, 0
+		);
+
+		// Dispatch the touch event (finger press)
+		rootView.dispatchTouchEvent(motionEventDown);
+
+		// Create the MotionEvent for ACTION_UP (finger lift)
+		MotionEvent motionEventUp = MotionEvent.obtain(
+			downTime, eventTime, MotionEvent.ACTION_UP, (x), y, 0
+		);
+
+		// Dispatch the touch event (finger lift)
+		rootView.dispatchTouchEvent(motionEventUp);
+
+		// Log the coordinates for debugging purposes
+		Log.d("SimulatedTouch", "Touch event simulated at X: " + x + ", Y: " + y);
+
+		// Recycle the MotionEvent objects to avoid memory leaks
+		motionEventDown.recycle();
+		motionEventUp.recycle();
+	}
+
+	//
+	// using SoftKey method but idk
+	//
+	public void onPointerMove(float x, float y) {
+
+		// Loop through the keypad keys and check if the pointer is over any key
+		for (View key : getKeys()) {
+			if (isPointerOverKey(key, x, y)) {
+				simulateClick(key);
+				break;
+			}
+		}
+	}
+
+	public boolean isPointerOverKey(View key, float pointerX, float pointerY) {
+		int[] keyPosition = new int[2];
+
+		key.getLocationOnScreen(keyPosition);
+
+		float keyLeft = keyPosition[0];
+		float keyRight = keyLeft + key.getWidth();
+		float keyTop = keyPosition[1];
+		float keyBottom = keyTop + key.getHeight();
+
+		return (pointerX >= keyLeft && pointerX <= keyRight && pointerY >= keyTop && pointerY <= keyBottom);
+	}
+
+	public void simulateClick(View key) {
+		// Create a MotionEvent to simulate the touch
+		long downTime = SystemClock.uptimeMillis();
+		long eventTime = SystemClock.uptimeMillis();
+
+		MotionEvent motionEvent = MotionEvent.obtain(
+			downTime, eventTime, MotionEvent.ACTION_DOWN,
+			key.getX(), key.getY(), 0
+		);
+
+		// Dispatch the touch event to the key
+		key.dispatchTouchEvent(motionEvent);
+
+		// Log the key interaction
+		Log.d("KeyPress", "Pointer clicked on key: " + key.getId());
+
+		// Create and dispatch the ACTION_UP event to simulate lifting the finger
+		motionEvent = MotionEvent.obtain(
+			downTime, eventTime, MotionEvent.ACTION_UP,
+			key.getX(), key.getY(), 0
+		);
+		key.dispatchTouchEvent(motionEvent);
+	}
+
+	//
+	//
+	//
 
 	@Override
 	protected void enableClickHandlers() {

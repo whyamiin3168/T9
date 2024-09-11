@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/numpad_container"
@@ -8,170 +10,215 @@
 	android:gravity="center"
 	android:orientation="horizontal">
 
-	<androidx.constraintlayout.widget.ConstraintLayout
-		android:layout_width="250dp"
-		android:layout_height="match_parent">
-
-		<Button
-			android:id="@+id/leftbuttonT9"
-			android:layout_width="70dp"
-			android:layout_height="65dp"
-			android:layout_marginEnd="32dp"
-			android:text="Click"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.741" />
-
-		<ImageButton
-			android:id="@+id/button"
-			android:layout_width="70dp"
-			android:layout_height="65dp"
-			android:src="@drawable/ic_dpad_up"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toStartOf="@+id/button2"
-			app:layout_constraintHorizontal_bias="1.0"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.375" />
-
-		<ImageButton
-			android:id="@+id/button2"
-			android:layout_width="70dp"
-			android:layout_height="65dp"
-			android:src="@drawable/ic_dpad_down"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toStartOf="@+id/leftbuttonT9"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.375" />
-	</androidx.constraintlayout.widget.ConstraintLayout>
-
-	<androidx.constraintlayout.widget.ConstraintLayout
+	<FrameLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:maxWidth="@dimen/numpad_max_width"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent">
+		android:layout_height="match_parent"
+		android:gravity="center">
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<ImageView
+				android:id="@+id/pointer"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:elevation="40dp"
+				android:src="@drawable/circle_dot"
+				android:visibility="visible"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
 
 		<LinearLayout
-			android:id="@+id/linearLayout"
-			android:layout_width="720dp"
-			android:layout_height="270dp"
-			android:orientation="vertical"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.0"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="1.0">
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:orientation="horizontal"
+			android:weightSum="3">
 
-			<View
-				android:id="@+id/separator_top"
-				style="@style/numRowSeparator" />
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="0.625"
+				android:gravity="left">
 
-			<LinearLayout
-				android:id="@+id/status_bar_container"
-				android:layout_width="match_parent"
-				android:layout_height="@dimen/numpad_candidate_height"
-				android:layoutDirection="ltr">
+				<Button
+					android:id="@+id/leftbuttonT9"
+					android:layout_width="70dp"
+					android:layout_height="65dp"
+					android:layout_marginEnd="16dp"
+					android:text="Click"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintVertical_bias="0.846" />
 
-				<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
-					android:id="@+id/soft_key_left_arrow"
-					style="@android:style/Widget.Holo.Button.Borderless"
-					android:layout_width="@dimen/numpad_arrow_key_width"
-					android:layout_height="match_parent"
-					android:text="@string/key_dpad_left"
-					android:textSize="@dimen/soft_key_icon_size" />
+				<ImageButton
+					android:id="@+id/button1"
+					android:layout_width="70dp"
+					android:layout_height="65dp"
+					android:src="@drawable/ic_dpad_up"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toStartOf="@+id/button2"
+					app:layout_constraintHorizontal_bias="1.0"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintVertical_bias="0.361" />
 
-				<View
-					android:id="@+id/separator_candidates_1"
-					style="@style/numSeparator" />
+				<ImageButton
+					android:id="@+id/button2"
+					android:layout_width="70dp"
+					android:layout_height="65dp"
+					android:layout_marginEnd="36dp"
+					android:src="@drawable/ic_dpad_down"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="@+id/leftbuttonT9"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintVertical_bias="0.361" />
+
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1.75"
+
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent">
 
 				<FrameLayout
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="1">
+					android:layout_width="match_parent"
+					android:layout_height="match_parent">
 
-					<TextView
-						android:id="@+id/status_bar"
-						android:layout_width="match_parent"
-						android:layout_height="match_parent"
-						android:gravity="center"
-						android:textStyle="italic"
-						tools:text="@tools:sample/lorem" />
+					<LinearLayout
+						android:id="@+id/linearLayout"
+						android:layout_width="600dp"
+						android:layout_height="300dp"
+						android:layout_gravity="center"
+						android:background="@drawable/button_border"
+						android:orientation="vertical">
 
-					<androidx.recyclerview.widget.RecyclerView
-						android:id="@+id/suggestions_bar"
-						android:layout_width="match_parent"
-						android:layout_height="match_parent"
-						android:gravity="center"
-						android:layoutDirection="locale"
-						android:orientation="horizontal"
-						android:scrollbars="none" />
+						<View
+							android:id="@+id/separator_top"
+							style="@style/numRowSeparator" />
+
+						<LinearLayout
+							android:id="@+id/status_bar_container"
+							android:layout_width="match_parent"
+							android:layout_height="@dimen/numpad_candidate_height"
+							android:layoutDirection="ltr">
+
+							<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
+								android:id="@+id/soft_key_left_arrow"
+								style="@android:style/Widget.Holo.Button.Borderless"
+								android:layout_width="@dimen/numpad_arrow_key_width"
+								android:layout_height="match_parent"
+								android:text="@string/key_dpad_left"
+								android:textSize="@dimen/soft_key_icon_size" />
+
+							<View
+								android:id="@+id/separator_candidates_1"
+								style="@style/numSeparator" />
+
+							<FrameLayout
+								android:layout_width="0dp"
+								android:layout_height="match_parent"
+								android:layout_weight="1">
+
+								<TextView
+									android:id="@+id/status_bar"
+									android:layout_width="match_parent"
+									android:layout_height="match_parent"
+									android:gravity="center"
+									android:textStyle="italic"
+									tools:text="@tools:sample/lorem" />
+
+								<androidx.recyclerview.widget.RecyclerView
+									android:id="@+id/suggestions_bar"
+									android:layout_width="match_parent"
+									android:layout_height="match_parent"
+									android:gravity="center"
+									android:layoutDirection="locale"
+									android:orientation="horizontal"
+									android:scrollbars="none" />
+							</FrameLayout>
+
+							<View
+								android:id="@+id/separator_candidates_2"
+								style="@style/numSeparator" />
+
+							<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
+								android:id="@+id/soft_key_right_arrow"
+								style="@android:style/Widget.Holo.Button.Borderless"
+								android:layout_width="@dimen/numpad_arrow_key_width"
+								android:layout_height="match_parent"
+								android:text="@string/key_dpad_right"
+								android:textSize="@dimen/soft_key_icon_size" />
+
+						</LinearLayout>
+
+						<View
+							android:id="@+id/separator_candidates_bottom"
+							style="@style/numRowSeparator" />
+
+						<include
+							android:id="@+id/main_soft_keys"
+							layout="@layout/panel_numpad"
+							android:paddingBottom="@dimen/numpad_padding_bottom" />
+
+					</LinearLayout>
+
 				</FrameLayout>
 
-				<View
-					android:id="@+id/separator_candidates_2"
-					style="@style/numSeparator" />
+			</androidx.constraintlayout.widget.ConstraintLayout>
 
-				<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
-					android:id="@+id/soft_key_right_arrow"
-					style="@android:style/Widget.Holo.Button.Borderless"
-					android:layout_width="@dimen/numpad_arrow_key_width"
-					android:layout_height="match_parent"
-					android:text="@string/key_dpad_right"
-					android:textSize="@dimen/soft_key_icon_size" />
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="0.625"
+				android:gravity="right">
 
-			</LinearLayout>
+				<Button
+					android:id="@+id/rightbuttonT9"
+					android:layout_width="70dp"
+					android:layout_height="65dp"
+					android:layout_marginStart="16dp"
+					android:text="Click"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintVertical_bias="0.846" />
 
-			<View
-				android:id="@+id/separator_candidates_bottom"
-				style="@style/numRowSeparator" />
+				<ImageButton
+					android:id="@+id/button3"
+					android:layout_width="70dp"
+					android:layout_height="65dp"
+					android:layout_marginStart="36dp"
+					android:src="@drawable/ic_dpad_left"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintStart_toStartOf="@+id/rightbuttonT9"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintVertical_bias="0.361" />
 
-			<include
-				android:id="@+id/main_soft_keys"
-				layout="@layout/panel_numpad"
-				android:paddingBottom="@dimen/numpad_padding_bottom" />
-
+				<ImageButton
+					android:id="@+id/button4"
+					android:layout_width="70dp"
+					android:layout_height="65dp"
+					android:src="@drawable/ic_dpad_right"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintHorizontal_bias="0.0"
+					app:layout_constraintStart_toEndOf="@+id/button3"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintVertical_bias="0.361" />
+			</androidx.constraintlayout.widget.ConstraintLayout>
 		</LinearLayout>
-	</androidx.constraintlayout.widget.ConstraintLayout>
 
-	<androidx.constraintlayout.widget.ConstraintLayout
-		android:layout_width="250dp"
-		android:layout_height="match_parent">
-
-		<Button
-			android:id="@+id/rightbuttonT9"
-			android:layout_width="70dp"
-			android:layout_height="65dp"
-			android:layout_marginStart="32dp"
-			android:text="Click"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.741" />
-
-		<ImageButton
-			android:id="@+id/button3"
-			android:layout_width="70dp"
-			android:layout_height="65dp"
-			android:src="@drawable/ic_dpad_left"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toEndOf="@+id/rightbuttonT9"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.375" />
-
-		<ImageButton
-			android:id="@+id/button4"
-			android:layout_width="70dp"
-			android:layout_height="65dp"
-			android:src="@drawable/ic_dpad_right"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.0"
-			app:layout_constraintStart_toEndOf="@+id/button3"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.375" />
-	</androidx.constraintlayout.widget.ConstraintLayout>
+	</FrameLayout>
 
 </LinearLayout>

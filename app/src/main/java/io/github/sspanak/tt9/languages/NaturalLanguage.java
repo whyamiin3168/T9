@@ -214,7 +214,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 
 	@NonNull
 	public String getKeyNumber(int key) {
-		return key >= 0 && key < 10 && LanguageKind.isArabic(this) ? Characters.ArabicNumbers.get(key) : super.getKeyNumber(key);
+		return key >= 0 && key < 9 && LanguageKind.isArabic(this) ? Characters.ArabicNumbers.get(key) : super.getKeyNumber(key);
 	}
 
 
