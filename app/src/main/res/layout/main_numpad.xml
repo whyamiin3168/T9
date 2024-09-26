@@ -21,9 +21,9 @@
 
 			<ImageView
 				android:id="@+id/pointer"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				android:elevation="40dp"
+				android:layout_width="70dp"
+				android:layout_height="50dp"
+				android:elevation="0dp"
 				android:src="@drawable/circle_dot"
 				android:visibility="visible"
 				app:layout_constraintBottom_toBottomOf="parent"
@@ -44,41 +44,42 @@
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
 				android:layout_weight="0.625"
+				android:id="@+id/leftconstraintlayout"
 				android:gravity="left">
 
 				<Button
 					android:id="@+id/leftbuttonT9"
 					android:layout_width="70dp"
 					android:layout_height="65dp"
-					android:layout_marginEnd="16dp"
+					android:layout_marginEnd="44dp"
 					android:text="Click"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="0.846" />
+					app:layout_constraintVertical_bias="0.758" />
 
 				<ImageButton
 					android:id="@+id/button1"
 					android:layout_width="70dp"
 					android:layout_height="65dp"
-					android:src="@drawable/ic_dpad_up"
+					android:src="@drawable/ic_dpad_left"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toStartOf="@+id/button2"
 					app:layout_constraintHorizontal_bias="1.0"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="0.361" />
+					app:layout_constraintVertical_bias="0.084" />
 
 				<ImageButton
 					android:id="@+id/button2"
 					android:layout_width="70dp"
 					android:layout_height="65dp"
-					android:layout_marginEnd="36dp"
-					android:src="@drawable/ic_dpad_down"
+					android:layout_marginEnd="16dp"
+					android:src="@drawable/ic_dpad_up"
 					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintEnd_toEndOf="@+id/leftbuttonT9"
+					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="0.361" />
+					app:layout_constraintVertical_bias="0.084" />
 
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
@@ -87,6 +88,7 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:layout_weight="1.75"
+				android:id="@+id/mainnumpadconstraintLayout"
 
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent">
@@ -96,11 +98,11 @@
 					android:layout_height="match_parent">
 
 					<LinearLayout
-						android:id="@+id/linearLayout"
-						android:layout_width="600dp"
-						android:layout_height="300dp"
+						android:id="@+id/mainlinearLayout"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
 						android:layout_gravity="center"
-						android:background="@drawable/button_border"
+
 						android:orientation="vertical">
 
 						<View
@@ -187,23 +189,23 @@
 					android:id="@+id/rightbuttonT9"
 					android:layout_width="70dp"
 					android:layout_height="65dp"
-					android:layout_marginStart="16dp"
-					android:text="Click"
+					android:layout_marginStart="44dp"
+					android:text="Hold"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="0.846" />
+					app:layout_constraintVertical_bias="0.758" />
 
 				<ImageButton
 					android:id="@+id/button3"
 					android:layout_width="70dp"
 					android:layout_height="65dp"
-					android:layout_marginStart="36dp"
-					android:src="@drawable/ic_dpad_left"
+					android:layout_marginStart="16dp"
+					android:src="@drawable/ic_dpad_down"
 					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintStart_toStartOf="@+id/rightbuttonT9"
+					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="0.361" />
+					app:layout_constraintVertical_bias="0.084" />
 
 				<ImageButton
 					android:id="@+id/button4"
@@ -215,7 +217,7 @@
 					app:layout_constraintHorizontal_bias="0.0"
 					app:layout_constraintStart_toEndOf="@+id/button3"
 					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="0.361" />
+					app:layout_constraintVertical_bias="0.084" />
 			</androidx.constraintlayout.widget.ConstraintLayout>
 		</LinearLayout>
 

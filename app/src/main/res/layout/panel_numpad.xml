@@ -4,6 +4,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
+	android:id="@+id/the_mainpad"
 	tools:showIn="@layout/main_numpad">
 
 	<!-- Row 1 -->

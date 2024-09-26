@@ -7,7 +7,7 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:textAppearance="@style/TextAppearance.AppCompat.Large"
-		android:background="@drawable/button_border" />
+		 />
 
 	<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
 		android:id="@+id/soft_key_2"
@@ -16,7 +16,7 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:textAppearance="@style/TextAppearance.AppCompat.Large"
-		android:background="@drawable/button_border" />
+		 />
 
 	<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
 		android:id="@+id/soft_key_3"
@@ -25,5 +25,5 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:textAppearance="@style/TextAppearance.AppCompat.Large"
-		android:background="@drawable/button_border" />
+		 />
 </merge>

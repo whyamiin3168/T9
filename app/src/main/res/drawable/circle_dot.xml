@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-	<solid android:color="#FF0000" /> <!-- Red color, change to desired color -->
+	<solid android:color="#f2a333" /> <!-- Red color, change to desired color -->
 	<corners android:radius="500dp" /> <!-- Half of the size to make it a perfect circle -->
 </shape>
 
