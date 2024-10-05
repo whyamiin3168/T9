@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- Light theme -->
-	<color name="button_text">#242424</color>
+	<color name="button_text">#000000</color>
 
 	<color name="candidate_background">#D3D3D3</color>
 	<color name="candidate_color">#202020</color>
@@ -12,7 +12,7 @@
 	<color name="numpad_separator">#CCC</color>
 
 	<!-- Dark theme -->
-	<color name="dark_button_text">#C0C0C0</color>
+	<color name="dark_button_text">#FFFFFF</color>
 
 	<color name="dark_candidate_background">#2C2C2C</color>
 	<color name="dark_candidate_color">#CCCCCC</color>

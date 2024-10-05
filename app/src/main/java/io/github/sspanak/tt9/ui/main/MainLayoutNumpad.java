@@ -420,12 +420,12 @@ class MainLayoutNumpad extends BaseMainLayout {
 		right_button.setOnClickListener(v -> movePointer(index, 0));
 
 		// simulate the clicking action
-		Button clickButton = getView().findViewById(R.id.leftbuttonT9);
+		ImageButton clickButton = getView().findViewById(R.id.leftbuttonT9);
 		View root_view = getView(); //findViewById(android.R.id.content).getRootView();
 		clickButton.setOnClickListener(v -> simulateTouchAtPointerPosition(root_view, 100));
 
 		// right button
-		Button holdButton = getView().findViewById(R.id.rightbuttonT9);
+		ImageButton holdButton = getView().findViewById(R.id.rightbuttonT9);
 		//View root_view = getView(); //findViewById(android.R.id.content).getRootView();
 		holdButton.setOnClickListener(v -> simulateTouchAtPointerPositionHold(root_view));
 

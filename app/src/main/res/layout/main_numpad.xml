@@ -47,12 +47,13 @@
 				android:id="@+id/leftconstraintlayout"
 				android:gravity="left">
 
-				<Button
+				<ImageButton
 					android:id="@+id/leftbuttonT9"
-					android:layout_width="70dp"
-					android:layout_height="65dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
 					android:layout_marginEnd="44dp"
-					android:text="Click"
+					android:src="@drawable/click_icon"
+
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
@@ -185,11 +186,12 @@
 				android:layout_weight="0.625"
 				android:gravity="right">
 
-				<Button
+				<ImageButton
 					android:id="@+id/rightbuttonT9"
-					android:layout_width="70dp"
-					android:layout_height="65dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
 					android:layout_marginStart="44dp"
+					android:src="@drawable/hold_icon"
 					android:text="Hold"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
