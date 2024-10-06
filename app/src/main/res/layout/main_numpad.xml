@@ -26,6 +26,8 @@
 				android:elevation="0dp"
 				android:src="@drawable/circle_dot"
 				android:visibility="visible"
+
+
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
@@ -47,40 +49,46 @@
 				android:id="@+id/leftconstraintlayout"
 				android:gravity="left">
 
-				<ImageButton
-					android:id="@+id/leftbuttonT9"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginEnd="44dp"
-					android:src="@drawable/click_icon"
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:orientation="vertical"
+					android:weightSum="3">
 
-					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="0.758" />
+					<androidx.constraintlayout.widget.ConstraintLayout
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_weight="2.5">
 
-				<ImageButton
-					android:id="@+id/button1"
-					android:layout_width="70dp"
-					android:layout_height="65dp"
-					android:src="@drawable/ic_dpad_left"
-					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintEnd_toStartOf="@+id/button2"
-					app:layout_constraintHorizontal_bias="1.0"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="0.084" />
+						<Button
+							android:id="@+id/leftswitchbutton"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="SWAP"
+							android:visibility="gone"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent" />
+					</androidx.constraintlayout.widget.ConstraintLayout>
 
-				<ImageButton
-					android:id="@+id/button2"
-					android:layout_width="70dp"
-					android:layout_height="65dp"
-					android:layout_marginEnd="16dp"
-					android:src="@drawable/ic_dpad_up"
-					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="0.084" />
+					<androidx.constraintlayout.widget.ConstraintLayout
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_weight="0.5">
+
+						<ViewSwitcher
+							android:layout_width="match_parent"
+							android:layout_height="match_parent"
+							android:id="@+id/leftviewswitcher">
+
+							<include layout="@layout/left_navigation_view"/>
+
+							<include layout="@layout/left_action_view"/>
+
+						</ViewSwitcher>
+
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+				</LinearLayout>
 
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
@@ -89,6 +97,7 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:layout_weight="1.75"
+				android:background="@drawable/button_border"
 				android:id="@+id/mainnumpadconstraintLayout"
 
 				app:layout_constraintStart_toStartOf="parent"
@@ -186,40 +195,46 @@
 				android:layout_weight="0.625"
 				android:gravity="right">
 
-				<ImageButton
-					android:id="@+id/rightbuttonT9"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="44dp"
-					android:src="@drawable/hold_icon"
-					android:text="Hold"
-					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="0.758" />
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:orientation="vertical"
+					android:weightSum="3">
 
-				<ImageButton
-					android:id="@+id/button3"
-					android:layout_width="70dp"
-					android:layout_height="65dp"
-					android:layout_marginStart="16dp"
-					android:src="@drawable/ic_dpad_down"
-					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="0.084" />
+					<androidx.constraintlayout.widget.ConstraintLayout
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_weight="2.5">
 
-				<ImageButton
-					android:id="@+id/button4"
-					android:layout_width="70dp"
-					android:layout_height="65dp"
-					android:src="@drawable/ic_dpad_right"
-					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintHorizontal_bias="0.0"
-					app:layout_constraintStart_toEndOf="@+id/button3"
-					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="0.084" />
+						<Button
+							android:id="@+id/rightswitchbutton"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="SWAP"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent" />
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_weight="0.5">
+
+						<ViewSwitcher
+							android:layout_width="match_parent"
+							android:layout_height="match_parent"
+							android:id="@+id/rightviewswitcher">
+
+							<include layout="@layout/right_action_view"/>
+
+							<include layout="@layout/right_navigation_view"/>
+
+						</ViewSwitcher>
+
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+				</LinearLayout>
+
 			</androidx.constraintlayout.widget.ConstraintLayout>
 		</LinearLayout>
 

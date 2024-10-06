@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<ImageButton
+		android:id="@+id/leftholdbuttonT9"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:src="@drawable/hold_finger_icon"
+		android:text="Hold"
+		app:layout_constraintBottom_toBottomOf="@+id/leftselectbuttonT9"
+		app:layout_constraintStart_toStartOf="@+id/guideline"
+		app:layout_constraintTop_toTopOf="@+id/leftselectbuttonT9"
+		app:layout_constraintVertical_bias="0.0" />
+
+	<ImageButton
+		android:id="@+id/leftselectbuttonT9"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="28dp"
+		android:src="@drawable/press_finger_icon"
+		app:layout_constraintEnd_toStartOf="@+id/guideline"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_percent="0.5"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

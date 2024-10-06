@@ -128,6 +128,6 @@ public class ModeABC extends InputMode {
 		}
 		String modeString = language.getAbcString() + langCode.toUpperCase();
 
-		return (textCase == CASE_LOWER) ? modeString.toLowerCase(language.getLocale()) : modeString.toUpperCase(language.getLocale());
+		return (textCase == CASE_LOWER) ? "" + modeString.toLowerCase(language.getLocale()) : ""+ modeString.toUpperCase(language.getLocale());
 	}
 }

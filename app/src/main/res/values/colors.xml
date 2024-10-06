@@ -20,4 +20,7 @@
 
 	<color name="dark_numpad_background">#353835</color>
 	<color name="dark_numpad_separator">#555</color>
+
+	<!-- Pointer theme -->
+	<color name="pointer_colour">#50C878</color>
 </resources>

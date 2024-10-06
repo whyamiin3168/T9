@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<ImageButton
+		android:id="@+id/leftbutton1"
+		android:layout_width="65dp"
+		android:layout_height="65dp"
+		android:src="@drawable/ic_dpad_left"
+		app:layout_constraintBottom_toTopOf="@+id/leftbutton3"
+		app:layout_constraintEnd_toStartOf="@+id/leftbutton2"
+		app:layout_constraintTop_toBottomOf="@+id/leftbutton2" />
+
+	<ImageButton
+		android:id="@+id/leftbutton2"
+		android:layout_width="65dp"
+		android:layout_height="65dp"
+		android:layout_marginTop="10dp"
+		android:src="@drawable/ic_dpad_up"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/leftbutton3"
+		android:layout_width="65dp"
+		android:layout_height="65dp"
+		android:layout_marginTop="65dp"
+		android:src="@drawable/ic_dpad_down"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/leftbutton2" />
+
+	<ImageButton
+		android:id="@+id/leftbutton4"
+		android:layout_width="65dp"
+		android:layout_height="65dp"
+		android:src="@drawable/ic_dpad_right"
+		app:layout_constraintBottom_toTopOf="@+id/leftbutton3"
+		app:layout_constraintStart_toEndOf="@+id/leftbutton2"
+		app:layout_constraintTop_toBottomOf="@+id/leftbutton2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

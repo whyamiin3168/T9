@@ -452,11 +452,11 @@ public class ModePredictive extends InputMode {
 
 		String modeString = language.getName();
 		if (textCase == CASE_UPPER) {
-			return modeString.toUpperCase(language.getLocale());
+			return "Predictive "+modeString.toUpperCase(language.getLocale());
 		} else if (textCase == CASE_LOWER && !settings.getAutoTextCase()) {
-			return modeString.toLowerCase(language.getLocale());
+			return "Predictive "+modeString.toLowerCase(language.getLocale());
 		} else {
-			return modeString;
+			return "Predictive " + modeString;
 		}
 	}
 }

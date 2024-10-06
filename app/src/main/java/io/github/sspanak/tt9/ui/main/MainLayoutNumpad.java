@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ui.main;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -12,12 +13,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.hacks.DeviceInfo;
@@ -35,6 +38,8 @@ class MainLayoutNumpad extends BaseMainLayout {
 	private boolean isMoving = false;
 	private View keypadView = null;
 	private boolean inStartingPos= false;
+	private int rightside = 1;
+	private View prevView = null;
 
 	MainLayoutNumpad(TraditionalT9 tt9) {
 		super(tt9, R.layout.main_numpad);
@@ -220,7 +225,11 @@ class MainLayoutNumpad extends BaseMainLayout {
 	}
 
 	public ArrayList<View> getKeypad_pos() {
-		ArrayList<View> keypad_pos = new ArrayList<View>(20);
+		ArrayList<View> keypad_pos = new ArrayList<View>(22);
+
+		// status bar row
+		keypad_pos.add(getView().findViewById(R.id.soft_key_left_arrow));
+		keypad_pos.add(getView().findViewById(R.id.soft_key_right_arrow));
 
 		// first row
 		keypad_pos.add(getView().findViewById(R.id.soft_key_settings));
@@ -262,13 +271,13 @@ class MainLayoutNumpad extends BaseMainLayout {
 	}
 
 	public int getRowMultiplier(int keypadIndex){
-		if (keypadIndex >= 0 && keypadIndex <= 4){
+		if (keypadIndex >= 2 && keypadIndex <= 6){
 			return 1;
-		} else if (keypadIndex >= 5 && keypadIndex <= 9){
+		} else if (keypadIndex >= 7 && keypadIndex <= 11){
 			return 2;
-		} else if (keypadIndex >= 10 && keypadIndex <= 14){
+		} else if (keypadIndex >= 12 && keypadIndex <= 16){
 			return 3;
-		} else if (keypadIndex >= 15 && keypadIndex <= 19){
+		} else if (keypadIndex >= 17 && keypadIndex <= 21){
 			return 4;
 		}
 		return 0;
@@ -287,103 +296,6 @@ class MainLayoutNumpad extends BaseMainLayout {
 		int step = 25;
 		isMoving = false;
 
-		//View button = getView().findViewById(R.id.soft_key_1);
-		//button.setBackgroundColor(Color.parseColor("#cac6ba"));
-
-//		View view = findViewById(R.id.your_view);
-//		float x = view.getX(); // X relative to parent
-//		float y = view.getY(); // Y relative to parent
-//
-//		getView().findViewById(R.id.soft_key_1).getX();
-
-
-
-// Runnable to update pointer position continuously
-//		Runnable moveUpRunnable = new Runnable() {
-//			@Override
-//			public void run() {
-//				if (isMoving) {
-//					movePointer(0, -step);
-//					handler.postDelayed(this, 100); // Delay of 100ms for continuous movement
-//				}
-//			}
-//		};
-//
-//		Runnable moveDownRunnable = new Runnable() {
-//			@Override
-//			public void run() {
-//				if (isMoving) {
-//					movePointer(0, step);
-//					handler.postDelayed(this, 100);
-//				}
-//			}
-//		};
-//
-//		Runnable moveLeftRunnable = new Runnable() {
-//			@Override
-//			public void run() {
-//				if (isMoving) {
-//					movePointer(-step, 0);
-//					handler.postDelayed(this, 100);
-//				}
-//			}
-//		};
-//
-//		Runnable moveRightRunnable = new Runnable() {
-//			@Override
-//			public void run() {
-//				if (isMoving) {
-//					movePointer(step, 0);
-//					handler.postDelayed(this, 100);
-//				}
-//			}
-//		};
-//
-// Setup touch listeners for each button
-//		ImageButton upButton = getView().findViewById(R.id.button1);
-//		upButton.setOnTouchListener((v, event) -> {
-//			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//				isMoving = true;
-//				handler.post(moveUpRunnable);
-//			} else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-//				isMoving = false;
-//			}
-//			return true;
-//		});
-//
-//		ImageButton downButton = getView().findViewById(R.id.button2);
-//		downButton.setOnTouchListener((v, event) -> {
-//			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//				isMoving = true;
-//				handler.post(moveDownRunnable);
-//			} else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-//				isMoving = false;
-//			}
-//			return true;
-//		});
-//
-//		ImageButton leftButton = getView().findViewById(R.id.button3);
-//		leftButton.setOnTouchListener((v, event) -> {
-//			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//				isMoving = true;
-//				handler.post(moveLeftRunnable);
-//			} else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-//				isMoving = false;
-//			}
-//			return true;
-//		});
-//
-//		ImageButton rightButton = getView().findViewById(R.id.button4);
-//		rightButton.setOnTouchListener((v, event) -> {
-//			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//				isMoving = true;
-//				handler.post(moveRightRunnable);
-//			} else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-//				isMoving = false;
-//			}
-//			return true;
-//		});
-
 		// add keypads fixed position to ArrayList to extract exact
 		// coordinates when movePointer is called
 
@@ -400,34 +312,99 @@ class MainLayoutNumpad extends BaseMainLayout {
 			float centerX = startingkeypad.getWidth()/2;
 			float centerY = startingkeypad.getHeight()/2;
 
-			//pointer.setX(startingkeypad.getX() + startnumlayoutX + centerX - 4); // Update X position
+			int color = ContextCompat.getColor(getView().getContext(), R.color.pointer_colour);
+			startingkeypad.setBackgroundColor(color);
+
+			pointer.setX(startingkeypad.getX()); // Update X position
+			// earlier idea
+			//pointer.setY((2 * startrowHeight) + startrowHeight + startingkeypad.getY() + statusbar.getHeight() + centerY -10); // Update Y position
 			pointer.setY((2 * startrowHeight) + startrowHeight + startingkeypad.getY() + statusbar.getHeight() + centerY -10); // Update Y position
 
+			prevView = startingkeypad;
 			inStartingPos = true;
 		}
+//		ImageView pointer = getView().findViewById(R.id.pointer);
+//		View startingkeypad = getView().findViewById(R.id.soft_key_left_arrow);
+//		View numpad_layout = getView().findViewById(R.id.mainnumpadconstraintLayout);
+//		pointer.setX(startingkeypad.getX() + numpad_layout.getX());
+		//pointer.setY((2 * startrowHeight) + startrowHeight + startingkeypad.getY() + statusbar.getHeight() + centerY -10);
 
+		View root_view = getView();
 
-		ImageButton up_button = getView().findViewById(R.id.button2);
-		up_button.setOnClickListener(v -> movePointer(0, -index));
+		//
+		// left view
+		ImageButton left_up_button = getView().findViewById(R.id.leftbutton2);
+		left_up_button.setOnClickListener(v -> movePointer(0, -index));
 
-		ImageButton down_button = getView().findViewById(R.id.button3);
-		down_button.setOnClickListener(v -> movePointer(0, index));
+		ImageButton left_down_button = getView().findViewById(R.id.leftbutton3);
+		left_down_button.setOnClickListener(v -> movePointer(0, index));
 
-		ImageButton left_button = getView().findViewById(R.id.button1);
-		left_button.setOnClickListener(v -> movePointer(-index, 0));
+		ImageButton left_left_button = getView().findViewById(R.id.leftbutton1);
+		left_left_button.setOnClickListener(v -> movePointer(-index, 0));
 
-		ImageButton right_button = getView().findViewById(R.id.button4);
-		right_button.setOnClickListener(v -> movePointer(index, 0));
+		ImageButton left_right_button = getView().findViewById(R.id.leftbutton4);
+		left_right_button.setOnClickListener(v -> movePointer(index, 0));
 
 		// simulate the clicking action
-		ImageButton clickButton = getView().findViewById(R.id.leftbuttonT9);
-		View root_view = getView(); //findViewById(android.R.id.content).getRootView();
-		clickButton.setOnClickListener(v -> simulateTouchAtPointerPosition(root_view, 100));
+		ImageButton leftclickButton = getView().findViewById(R.id.leftselectbuttonT9);
+		leftclickButton.setOnClickListener(v -> simulateTouchAtPointerPosition(root_view, 100));
 
-		// right button
-		ImageButton holdButton = getView().findViewById(R.id.rightbuttonT9);
-		//View root_view = getView(); //findViewById(android.R.id.content).getRootView();
+		// simulate hold action
+		ImageButton leftholdButton = getView().findViewById(R.id.leftholdbuttonT9);
+		leftholdButton.setOnClickListener(v -> simulateTouchAtPointerPositionHold(root_view));
+
+		//
+		// right view
+		ImageButton right_up_button = getView().findViewById(R.id.rightbutton2);
+		right_up_button.setOnClickListener(v -> movePointer(0, -index));
+
+		ImageButton right_down_button = getView().findViewById(R.id.rightbutton3);
+		right_down_button.setOnClickListener(v -> movePointer(0, index));
+
+		ImageButton right_left_button = getView().findViewById(R.id.rightbutton1);
+		right_left_button.setOnClickListener(v -> movePointer(-index, 0));
+
+		ImageButton right_right_button = getView().findViewById(R.id.rightbutton4);
+		right_right_button.setOnClickListener(v -> movePointer(index, 0));
+
+		// simulate the clicking action
+		ImageButton rightclickButton = getView().findViewById(R.id.rightselectbuttonT9);
+		rightclickButton.setOnClickListener(v -> simulateTouchAtPointerPosition(root_view, 100));
+
+		// hold action button
+		ImageButton holdButton = getView().findViewById(R.id.rightholdbuttonT9);
 		holdButton.setOnClickListener(v -> simulateTouchAtPointerPositionHold(root_view));
+
+		// switch view
+		ViewSwitcher leftviewSwitcher = getView().findViewById(R.id.leftviewswitcher);
+		ViewSwitcher rightviewSwitcher = getView().findViewById(R.id.rightviewswitcher);
+		Button leftswitchButton = getView().findViewById(R.id.leftswitchbutton);
+		Button rightswitchButton = getView().findViewById(R.id.rightswitchbutton);
+
+
+		leftswitchButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				leftviewSwitcher.setDisplayedChild(1);
+				rightviewSwitcher.setDisplayedChild(1);
+			}
+		});
+
+		rightswitchButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (rightside == 1){
+					leftviewSwitcher.setDisplayedChild(1);
+					rightviewSwitcher.setDisplayedChild(1);
+					rightside = 0;
+				} else if (rightside == 0){
+					leftviewSwitcher.setDisplayedChild(0);
+					rightviewSwitcher.setDisplayedChild(0);
+					rightside = 1;
+				}
+
+			}
+		});
 
 
 	}
@@ -443,7 +420,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 		// set default keypad position which is at keypad 5
 		if (keypadView == null){
-			setkeypadpos(the_keypads.get(7));
+			setkeypadpos(the_keypads.get(9));
 		}
 
 		View statusbar = getView().findViewById(R.id.status_bar_container);
@@ -451,19 +428,77 @@ class MainLayoutNumpad extends BaseMainLayout {
 		View numpad_layout = getView().findViewById(R.id.mainnumpadconstraintLayout);
 		float numlayoutX = numpad_layout.getX();
 		float numlayoutY = numpad_layout.getY();
-
-		View settings = getView().findViewById(R.id.soft_key_settings);
-		float settings_centerX = settings.getWidth()/2;
-		float settings_centerY = settings.getHeight()/2;
 		View currentView;
 
 		// move up
 		if (deltaX == 0 && deltaY == -1){
 			currentView = getkeypadView();
 			int keypadIndex = the_keypads.indexOf(currentView);
-			//Log.d("jk", String.valueOf(keypadIndex));
-			if (keypadIndex >= 5){
+
+			// top row to get to softkeyarrows
+			if (keypadIndex == 2 || keypadIndex == 6){
+				int newkeypadIndex;
+
+				if (keypadIndex == 2) {
+					newkeypadIndex = keypadIndex - 2;
+				} else {
+					newkeypadIndex = keypadIndex - 5;
+				}
+
 				Log.d("beforeup", String.valueOf(keypadIndex));
+				// allow to move up to the soft key arrows
+				View newkeypadView = the_keypads.get(newkeypadIndex);
+
+				// soft arrow keys < and > x & y coordinates
+				float newkeypadView_centerX = newkeypadView.getWidth()/2;
+				float newkeypadView_centerY = newkeypadView.getHeight()/2;
+
+				//
+				//
+				// change pointer size
+				// Set new width and height
+				int newWidth = 10; // in pixels
+				int newHeight = 10; // in pixels
+
+				// Get the current layout parameters of the ImageView
+				ViewGroup.LayoutParams layoutParams = pointer.getLayoutParams();
+
+				// Update the width and height
+				layoutParams.width = newWidth;
+				layoutParams.height = newHeight;
+
+				// Apply the new layout parameters to the ImageView
+				pointer.setLayoutParams(layoutParams);
+
+				// soft key x coord + layout x coord + soft key center x + something i guess
+				//pointer.setX(newkeypadView.getX() + numlayoutX + newkeypadView_centerX -36 ); // Update X position
+				//pointer.setY( newkeypadView.getY() + ((newkeypadView_centerY-4)/2)); // Update Y position
+//				if (newkeypadIndex == 0){
+//					pointer.setX(newkeypadView.getX() + numlayoutX - 20); // Update X position
+//				} else {
+//					pointer.setX(newkeypadView.getX() + numlayoutX - 25); // Update X position
+//				}
+				pointer.setX(newkeypadView.getX() + numlayoutX - 10);
+				pointer.setY( newkeypadView.getY() );
+				//newkeypadView.setBackgroundColor(Color.RED);
+
+				int prevcolor = newkeypadView.getSolidColor();
+				prevView.setBackgroundColor(prevcolor);
+				int color = ContextCompat.getColor(getView().getContext(), R.color.pointer_colour);
+				newkeypadView.setBackgroundColor(color);
+				prevView = newkeypadView;
+
+				// set new keypadView
+				setkeypadpos(newkeypadView);
+
+				Log.d("afterup", String.valueOf(the_keypads.indexOf(getkeypadView())));
+
+			}
+
+			// it was 5
+			else if (keypadIndex >= 7){
+				Log.d("beforeup", String.valueOf(keypadIndex));
+
 				// allow to move up
 				int newkeypadIndex = keypadIndex - 5;
 				View newkeypadView = the_keypads.get(newkeypadIndex);
@@ -476,8 +511,42 @@ class MainLayoutNumpad extends BaseMainLayout {
 				int rowMultiplier = getRowMultiplier(newkeypadIndex) - 2;
 				int rowHeight = newkeypadView.getHeight();
 
-				pointer.setX(newkeypadView.getX() + numlayoutX + newkeypadView_centerX - 45); // Update X position
+				//
+				//
+				// change back pointer size
+				// Set new width and height
+				int newWidth = 70; // in pixels
+				int newHeight = 50; // in pixels
+
+				float density = getView().getResources().getDisplayMetrics().density;
+				int newWidthPx = (int) (newWidth * density);
+				int newHeightPx = (int) (newHeight * density);
+
+				// Get the current layout parameters of the ImageView
+				ViewGroup.LayoutParams layoutParams = pointer.getLayoutParams();
+
+				// Update the width and height
+				layoutParams.width = newWidthPx;
+				layoutParams.height = newHeightPx;
+
+				// Apply the new layout parameters to the ImageView
+				pointer.setLayoutParams(layoutParams);
+
+				List<Integer> excludedIndices = Arrays.asList(2,7,12,17, 6,11, 16, 21);
+				if (!excludedIndices.contains(newkeypadIndex)) {
+					pointer.setX(newkeypadView.getX() + numlayoutX + 38);
+				} else {
+					pointer.setX(newkeypadView.getX() + numlayoutX + 28);
+				}
+
+				//pointer.setX(newkeypadView.getX() + numlayoutX + newkeypadView_centerX - 45); // Update X position
 				pointer.setY((rowMultiplier * rowHeight) + newkeypadViewHeight + newkeypadView.getY() + statusbar.getHeight() + newkeypadView_centerY - 20); // Update Y position
+
+				int prevcolor = newkeypadView.getSolidColor();
+				prevView.setBackgroundColor(prevcolor);
+				int color = ContextCompat.getColor(getView().getContext(), R.color.pointer_colour);
+				newkeypadView.setBackgroundColor(color);
+				prevView = newkeypadView;
 
 				// set new keypadView
 				setkeypadpos(newkeypadView);
@@ -491,7 +560,65 @@ class MainLayoutNumpad extends BaseMainLayout {
 			currentView = getkeypadView();
 			int keypadIndex = the_keypads.indexOf(currentView);
 
-			if (keypadIndex < 15){
+			if (keypadIndex == 0 || keypadIndex == 1){
+				int newkeypadIndex;
+
+				if (keypadIndex == 0) {
+					newkeypadIndex = keypadIndex + 2;
+				} else {
+					newkeypadIndex = keypadIndex + 5;
+				}
+
+				Log.d("beforeup", String.valueOf(keypadIndex));
+				// allow to move up to the soft key arrows
+				View newkeypadView = the_keypads.get(newkeypadIndex);
+
+				// soft arrow keys < and > x & y coordinates
+				float newkeypadView_centerX = newkeypadView.getWidth()/2;
+				float newkeypadView_centerY = newkeypadView.getHeight()/2;
+
+				int rowHeight = newkeypadView.getHeight();
+
+				//
+				//
+				// change pointer size
+				// Set new width and height
+				int newWidth = 70; // in pixels
+				int newHeight = 50; // in pixels
+
+				float density = getView().getResources().getDisplayMetrics().density;
+				int newWidthPx = (int) (newWidth * density);
+				int newHeightPx = (int) (newHeight * density);
+
+				// Get the current layout parameters of the ImageView
+				ViewGroup.LayoutParams layoutParams = pointer.getLayoutParams();
+
+				// Update the width and height
+				layoutParams.width = newWidthPx;
+				layoutParams.height = newHeightPx;
+
+				// Apply the new layout parameters to the ImageView
+				pointer.setLayoutParams(layoutParams);
+
+				// soft key x coord + layout x coord + soft key center x + something i guess
+				pointer.setX(newkeypadView.getX() + numlayoutX + 55); // Update X position
+				pointer.setY( newkeypadView.getY() + statusbar.getHeight() + newkeypadView_centerY - 12);
+				//pointer.setY(newkeypadView.getY() + statusbar.getHeight() + newkeypadView_centerY - 20); // Update Y position
+
+				int prevcolor = newkeypadView.getSolidColor();
+				prevView.setBackgroundColor(prevcolor);
+				int color = ContextCompat.getColor(getView().getContext(), R.color.pointer_colour);
+				newkeypadView.setBackgroundColor(color);
+				prevView = newkeypadView;
+
+				// set new keypadView
+				setkeypadpos(newkeypadView);
+
+				Log.d("afterup", String.valueOf(the_keypads.indexOf(getkeypadView())));
+
+			}
+
+			else if (keypadIndex < 17 && (keypadIndex != 0 || keypadIndex != 1)){
 				Log.d("beforedown", String.valueOf(keypadIndex));
 				Log.d("prevkeycoord",currentView.getX() + "," + currentView.getY());
 				// allow to move down
@@ -506,8 +633,44 @@ class MainLayoutNumpad extends BaseMainLayout {
 				int rowMultiplier = getRowMultiplier(newkeypadIndex) - 1;
 				int rowHeight = newkeypadView.getHeight();
 
-				pointer.setX(newkeypadView.getX() + numlayoutX + newkeypadView_centerX - 45); // Update X position
+				//
+				//
+				// change back pointer size
+				// Set new width and height
+				int newWidth = 70; // in pixels
+				int newHeight = 50; // in pixels
+
+				float density = getView().getResources().getDisplayMetrics().density;
+				int newWidthPx = (int) (newWidth * density);
+				int newHeightPx = (int) (newHeight * density);
+
+				// Get the current layout parameters of the ImageView
+				ViewGroup.LayoutParams layoutParams = pointer.getLayoutParams();
+
+				// Update the width and height
+				layoutParams.width = newWidthPx;
+				layoutParams.height = newHeightPx;
+
+				// Apply the new layout parameters to the ImageView
+				pointer.setLayoutParams(layoutParams);
+
+				List<Integer> excludedIndices = Arrays.asList(2,7,12,17, 6, 11, 16,21);
+				if (!excludedIndices.contains(newkeypadIndex)) {
+					pointer.setX(newkeypadView.getX() + numlayoutX + 38);
+				} else {
+					pointer.setX(newkeypadView.getX() + numlayoutX + 28);
+				}
+
+//				pointer.setX(newkeypadView.getX() + numlayoutX + 55); // Update X position
+//				pointer.setY( newkeypadView.getY() + statusbar.getHeight() + newkeypadView_centerY - 12);
+				//pointer.setX(newkeypadView.getX() + numlayoutX + newkeypadView_centerX - 45); // Update X position
 				pointer.setY((rowMultiplier * rowHeight) + newkeypadView.getY() + statusbar.getHeight() + newkeypadView_centerY - 20); // Update Y position
+
+				int prevcolor = newkeypadView.getSolidColor();
+				prevView.setBackgroundColor(prevcolor);
+				int color = ContextCompat.getColor(getView().getContext(), R.color.pointer_colour);
+				newkeypadView.setBackgroundColor(color);
+				prevView = newkeypadView;
 
 				// set new keypadView
 				setkeypadpos(newkeypadView);
@@ -521,7 +684,58 @@ class MainLayoutNumpad extends BaseMainLayout {
 			currentView = getkeypadView();
 			int keypadIndex = the_keypads.indexOf(currentView);
 
-			if ((keypadIndex % 5) != 0){
+			if (keypadIndex != 0 && keypadIndex == 1){
+				int newkeypadIndex = 0;
+
+				Log.d("beforeup", String.valueOf(keypadIndex));
+				// allow to move up to the soft key arrows
+				View newkeypadView = the_keypads.get(newkeypadIndex);
+
+
+				// soft arrow keys < and > x & y coordinates
+				float newkeypadView_centerX = newkeypadView.getWidth()/2;
+				float newkeypadView_centerY = newkeypadView.getHeight()/2;
+
+				int rowHeight = newkeypadView.getHeight();
+
+				//
+				//
+				// change pointer size
+				// Set new width and height
+				int newWidth = 10; // in pixels
+				int newHeight = 10; // in pixels
+
+				// Get the current layout parameters of the ImageView
+				ViewGroup.LayoutParams layoutParams = pointer.getLayoutParams();
+
+				// Update the width and height
+				layoutParams.width = newWidth;
+				layoutParams.height = newHeight;
+
+				// Apply the new layout parameters to the ImageView
+				pointer.setLayoutParams(layoutParams);
+
+				// soft key x coord + layout x coord + soft key center x + something i guess
+				//pointer.setX(newkeypadView.getX() + numlayoutX + newkeypadView_centerX -8); // Update X position
+				//pointer.setY(newkeypadView.getY() + (newkeypadView_centerY/2));
+
+				pointer.setX(newkeypadView.getX() + numlayoutX ); // was with +6  Update X position
+				pointer.setY( newkeypadView.getY() + ((newkeypadView_centerY)/2) + 2);
+
+				int prevcolor = newkeypadView.getSolidColor();
+				prevView.setBackgroundColor(prevcolor);
+				int color = ContextCompat.getColor(getView().getContext(), R.color.pointer_colour);
+				newkeypadView.setBackgroundColor(color);
+				prevView = newkeypadView;
+
+				// set new keypadView
+				setkeypadpos(newkeypadView);
+
+				Log.d("afterup", String.valueOf(the_keypads.indexOf(getkeypadView())));
+
+			}
+
+			else if ( ((keypadIndex-2) % 5)  != 0 && (keypadIndex != 0)){
 				// allow to move left
 				int newkeypadIndex = keypadIndex - 1;
 				View newkeypadView = the_keypads.get(newkeypadIndex);
@@ -532,20 +746,101 @@ class MainLayoutNumpad extends BaseMainLayout {
 				int rowMultiplier = getRowMultiplier(newkeypadIndex) - 1;
 				int rowHeight = newkeypadView.getHeight();
 
-				pointer.setX(newkeypadView.getX() + numlayoutX + newkeypadView_centerX - 45); // Update X position
+				//
+				//
+				// change back pointer size
+				// Set new width and height
+				int newWidth = 70; // in pixels
+				int newHeight = 50; // in pixels
+
+				float density = getView().getResources().getDisplayMetrics().density;
+				int newWidthPx = (int) (newWidth * density);
+				int newHeightPx = (int) (newHeight * density);
+
+				// Get the current layout parameters of the ImageView
+				ViewGroup.LayoutParams layoutParams = pointer.getLayoutParams();
+
+				// Update the width and height
+				layoutParams.width = newWidthPx;
+				layoutParams.height = newHeightPx;
+
+				// Apply the new layout parameters to the ImageView
+				pointer.setLayoutParams(layoutParams);
+
+				List<Integer> excludedIndices = Arrays.asList(2, 7, 12, 17);
+				if (!excludedIndices.contains(newkeypadIndex)) {
+					pointer.setX(newkeypadView.getX() + numlayoutX + 38);
+				} else {
+					pointer.setX(newkeypadView.getX() + numlayoutX + 28);
+				}
+				//pointer.setX(newkeypadView.getX() + numlayoutX + 48); // Update X position
+				//pointer.setX(centerX - 35); // Update X position
 				pointer.setY((rowMultiplier * rowHeight) + newkeypadView.getY() + statusbar.getHeight() + newkeypadView_centerY - 20); // Update Y position
+
+				int prevcolor = newkeypadView.getSolidColor();
+				prevView.setBackgroundColor(prevcolor);
+				int color = ContextCompat.getColor(getView().getContext(), R.color.pointer_colour);
+				newkeypadView.setBackgroundColor(color);
+				prevView = newkeypadView;
 
 				// set new keypadView
 				setkeypadpos(newkeypadView);
 
 			}
 
+		// move right
 		} else if (deltaX == 1 && deltaY == 0) {
 			currentView = getkeypadView();
 			int keypadIndex = the_keypads.indexOf(currentView);
 
-			if (((keypadIndex-4) % 5) != 0){
-				// allow to move left
+			if (keypadIndex == 0 && keypadIndex != 1){
+				int newkeypadIndex = 1;
+
+				Log.d("beforeup", String.valueOf(keypadIndex));
+				// allow to move up to the soft key arrows
+				View newkeypadView = the_keypads.get(newkeypadIndex);
+
+				// soft arrow keys < and > x & y coordinates
+				float newkeypadView_centerX = newkeypadView.getWidth()/2;
+				float newkeypadView_centerY = newkeypadView.getHeight()/2;
+
+				int rowHeight = newkeypadView.getHeight();
+
+				//
+				//
+				// change pointer size
+				// Set new width and height
+				int newWidth = 10; // in pixels
+				int newHeight = 10; // in pixels
+
+				// Get the current layout parameters of the ImageView
+				ViewGroup.LayoutParams layoutParams = pointer.getLayoutParams();
+
+				// Update the width and height
+				layoutParams.width = newWidth;
+				layoutParams.height = newHeight;
+
+				// Apply the new layout parameters to the ImageView
+				pointer.setLayoutParams(layoutParams);
+
+				pointer.setX(newkeypadView.getX() + numlayoutX); // was with +5
+				pointer.setY( newkeypadView.getY() + ((newkeypadView_centerY)/2) + 2);
+
+				int prevcolor = newkeypadView.getSolidColor();
+				prevView.setBackgroundColor(prevcolor);
+				int color = ContextCompat.getColor(getView().getContext(), R.color.pointer_colour);
+				newkeypadView.setBackgroundColor(color);
+				prevView = newkeypadView;
+
+				// set new keypadView
+				setkeypadpos(newkeypadView);
+
+				Log.d("afterup", String.valueOf(the_keypads.indexOf(getkeypadView())));
+
+			}
+
+			else if (((keypadIndex-1) % 5) != 0){
+				// allow to move right
 				int newkeypadIndex = keypadIndex + 1;
 				View newkeypadView = the_keypads.get(newkeypadIndex);
 
@@ -555,7 +850,41 @@ class MainLayoutNumpad extends BaseMainLayout {
 				int rowMultiplier = getRowMultiplier(newkeypadIndex) - 1;
 				int rowHeight = newkeypadView.getHeight();
 
-				pointer.setX(newkeypadView.getX() + numlayoutX + newkeypadView_centerX - 45); // Update X position
+				//
+				//
+				// change back pointer size
+				// Set new width and height
+				int newWidth = 70; // in pixels
+				int newHeight = 50; // in pixels
+
+				float density = getView().getResources().getDisplayMetrics().density;
+				int newWidthPx = (int) (newWidth * density);
+				int newHeightPx = (int) (newHeight * density);
+
+				// Get the current layout parameters of the ImageView
+				ViewGroup.LayoutParams layoutParams = pointer.getLayoutParams();
+
+				// Update the width and height
+				layoutParams.width = newWidthPx;
+				layoutParams.height = newHeightPx;
+
+				// Apply the new layout parameters to the ImageView
+				pointer.setLayoutParams(layoutParams);
+
+				List<Integer> excludedIndices = Arrays.asList(6, 11, 16, 21);
+				if (!excludedIndices.contains(newkeypadIndex)) {
+					pointer.setX(newkeypadView.getX() + numlayoutX + 38);
+				} else {
+					pointer.setX(newkeypadView.getX() + numlayoutX + 28);
+				}
+
+				int prevcolor = newkeypadView.getSolidColor();
+				prevView.setBackgroundColor(prevcolor);
+				int color = ContextCompat.getColor(getView().getContext(), R.color.pointer_colour);
+				newkeypadView.setBackgroundColor(color);
+				prevView = newkeypadView;
+
+				//pointer.setX(newkeypadView.getX() + numlayoutX + newkeypadView_centerX - 45); // Update X position
 				pointer.setY((rowMultiplier * rowHeight) + newkeypadView.getY() + statusbar.getHeight() + newkeypadView_centerY - 20); // Update Y position
 
 				// set new keypadView
@@ -565,53 +894,9 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 		}
 
-	}
 
-//	public void simulateTouchAtPointerPosition1(View rootView) {
-//		// Get the current position of the pointer
-//		ImageView pointer = getView().findViewById(R.id.pointer);
-//
-//		float x = pointer.getX();
-//		float y = pointer.getY();
-//
-//		// Get the current time in milliseconds
-//		long downTime = SystemClock.uptimeMillis();
-//		long eventTime = SystemClock.uptimeMillis();
-//
-//		// Create the MotionEvent for ACTION_DOWN (finger press)
-//		// Note: because we have another constraint on the left, it takes into
-//		// account of 250 dp spacing
-//		MotionEvent motionEventDown = MotionEvent.obtain(
-//			downTime, eventTime, MotionEvent.ACTION_DOWN, (x), y, 0
-//		);
-//
-//		Log.d("fingerdown","" + downTime);
-//
-//		// Dispatch the touch event (finger press)
-//		rootView.dispatchTouchEvent(motionEventDown);
-//
-//
-//
-//		long uptime = SystemClock.uptimeMillis();
-//
-//		// Create the MotionEvent for ACTION_UP (finger lift)
-//		MotionEvent motionEventUp = MotionEvent.obtain(
-//			downTime, eventTime, MotionEvent.ACTION_UP, (x), y, 0
-//		);
-//
-//		Log.d("fingerup","" + uptime);
-//
-//
-//		// Dispatch the touch event (finger lift)
-//		rootView.dispatchTouchEvent(motionEventUp);
-//
-//		// Log the coordinates for debugging purposes
-//		Log.d("SimulatedTouch", "Touch event simulated at X: " + x + ", Y: " + y);
-//
-//		// Recycle the MotionEvent objects to avoid memory leaks
-//		motionEventDown.recycle();
-//		motionEventUp.recycle();
-//	}
+
+	}
 
 
 	public void simulateTouchAtPointerPosition(View rootView, int delaytime) {
